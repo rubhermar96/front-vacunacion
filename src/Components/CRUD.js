@@ -151,6 +151,7 @@ function CRUD() {
             <th>Dosis Pfizer</th>
             <th>Dosis Moderna</th>
             <th>Dosis AstraZeneca</th>
+            <th>Dosis Totales</th>
             <th>Administradas Totales</th>
             <th>Pauta Completa</th>
           </tr>
@@ -174,6 +175,7 @@ function CRUD() {
               <td>{framework.dosis_Pfizer}</td>
               <td>{framework.dosis_Moderna}</td>
               <td>{framework.dosis_Astrazeneca}</td>
+              <td></td>
               <td>{framework.administradas_totales}</td>
               <td>{framework.pauta_completa}</td>
               
