@@ -41,9 +41,6 @@ function App() {
           <Route path="/deets" component={MoreDeets}>
             <MoreDeets />
           </Route>
-          <Route path="/dankmemes" component={DankMemes}>
-            <DankMemes />
-          </Route>
         </Switch>
     </Router>
     </div>

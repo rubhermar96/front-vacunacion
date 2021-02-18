@@ -4,6 +4,12 @@ import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import axios from 'axios';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 //libreria para mejorar los alert   https://sweetalert.js.org/guides/
 //npm install sweetalert --save
 import swal from 'sweetalert';
@@ -142,9 +148,10 @@ function CRUD() {
     return (
       <div style={{textAlign: 'center'}}>
   <br />
-        <button className="btn btn-success" onClick={()=>abrirCerrarModalInsertar()}>Insertar</button>
+        <h1>Datos Por Comunidades Autónomas</h1><br/><br/>
+        <button className="btn btn-success" onClick={()=>abrirCerrarModalInsertar()}><AddCircleIcon></AddCircleIcon></button>
         <br /><br />
-      <table className="table table-striped">
+      <table className="table table-striped table-hover">
         <thead>
           <tr>
             <th>Comunidad</th>
@@ -153,35 +160,27 @@ function CRUD() {
             <th>Dosis AstraZeneca</th>
             <th>Dosis Totales</th>
             <th>Administradas Totales</th>
+            <th>% Sobre Entregadas</th>
             <th>Pauta Completa</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
         {console.log(data[0])}
           {data.map(framework=>(
             <tr key={framework.id}>
-              {/*console.log(framework.first_name)*/}
-              {/* el nombre de los campos que vienen a continuacion tienes que ser
-              los que nos devuelve el JSON. Fijate en como se llaman cuando te devuelve 
-              haciendo una peticion get por la url http://localhost:4008/users/
-              [{"id":1,"firstName":"juan","lastName":"Perez"},
-              {"id":2,"firstName":"Ana","lastName":"Soria"},
-              {"id":3,"firstName":"Luis","lastName":"Rodrigo"},
-              {"id":4,"firstName":"Raquel","lastName":"Segovia"}]
-  
-              
-              */}
               <td>{framework.nombre}</td>
               <td>{framework.dosis_Pfizer}</td>
               <td>{framework.dosis_Moderna}</td>
               <td>{framework.dosis_Astrazeneca}</td>
               <td></td>
               <td>{framework.administradas_totales}</td>
+              <td></td>
               <td>{framework.pauta_completa}</td>
               
             <td>
-            <button className="btn btn-primary" onClick={()=>seleccionarFramework(framework, "Editar")}>Editar</button> 
-            <button className="btn btn-danger" onClick={()=>seleccionarFramework(framework, "Eliminar")}>Eliminar</button>
+            <button className="btn btn-primary" onClick={()=>seleccionarFramework(framework, "Editar")}><EditIcon></EditIcon></button>
+            <button className="btn btn-danger" onClick={()=>seleccionarFramework(framework, "Eliminar")}><DeleteIcon></DeleteIcon></button>
             </td>
             </tr>
           ))}
@@ -193,7 +192,7 @@ function CRUD() {
   
   
       <Modal isOpen={modalInsertar}>
-        <ModalHeader>Insertar Usuarios</ModalHeader>
+        <ModalHeader>Insertar Comunidad</ModalHeader>
         <ModalBody>
           <div className="form-group">
             <label>Nombre Comunidad: </label>
@@ -225,8 +224,8 @@ function CRUD() {
         </ModalBody>
         <ModalFooter>
           
-          <button className="btn btn-primary" onClick={()=>peticionPost()}>Insertar</button>{"   "}
-          <button className="btn btn-danger" onClick={()=>abrirCerrarModalInsertar()}>Cancelar</button>
+          <button className="btn btn-primary" onClick={()=>peticionPost()}><AddCircleIcon></AddCircleIcon></button>{"   "}
+          <button className="btn btn-danger" onClick={()=>abrirCerrarModalInsertar()}><CancelIcon></CancelIcon></button>
         </ModalFooter>
       </Modal>
   
@@ -262,8 +261,8 @@ function CRUD() {
           </div>
         </ModalBody>
         <ModalFooter>
-          <button className="btn btn-primary" onClick={()=>peticionPut()}>Modificar</button>{"   "}
-          <button className="btn btn-danger" onClick={()=>abrirCerrarModalEditar()}>Cancelar</button>
+          <button className="btn btn-primary" onClick={()=>peticionPut()}><EditIcon></EditIcon></button>{"   "}
+          <button className="btn btn-danger" onClick={()=>abrirCerrarModalEditar()}><CancelIcon></CancelIcon></button>
         </ModalFooter>
       </Modal>
   
@@ -273,10 +272,10 @@ function CRUD() {
           </ModalBody>
           <ModalFooter>
             <button className="btn btn-danger" onClick={()=>peticionDelete()}>
-              Sí
+              <CheckCircleIcon></CheckCircleIcon>
             </button>
             <button className="btn btn-secondary" onClick={()=>abrirCerrarModalEliminar()} >
-              No
+              <CancelIcon></CancelIcon>
             </button>
           </ModalFooter>
         </Modal>
