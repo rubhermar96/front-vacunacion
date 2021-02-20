@@ -14,7 +14,12 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 //npm install sweetalert --save
 import swal from 'sweetalert';
 function CRUD() {
-  let dosis_totales=0;
+  let Dosis_totales=0;
+  let Totales_pfizer=0;
+  let Totales_moderna=0;
+  let Totales_astrazeneca=0;
+  let Totales_Admin=0;
+  let Total_pauta=0;
     //direccion de la API
     const baseUrl="http://localhost:4004/comunidades/";
     const [data, setData]=useState([]);
@@ -57,10 +62,10 @@ function CRUD() {
       await axios.get(baseUrl)
       .then(response=>{
         setData(response.data);
-        console.log(response.data[0].dosis_Pfizer);
+        console.log(response.data[0]);
         for (let i = 0; i < response.data.length; i++) {
-          dosis_totales+=response.data[i].dosis_Pfizer;
-          console.log(dosis_totales);
+          Dosis_totales+=response.data[i].dosis_Pfizer;
+          console.log(Dosis_totales);
        }
       }).catch(error=>{
         console.log(error);
@@ -147,6 +152,7 @@ function CRUD() {
     useEffect(()=>{
       peticionGet();
     },[])
+
   
     return (
       <div style={{textAlign: 'center'}}>
@@ -155,7 +161,7 @@ function CRUD() {
         <br /><br />
       <table className="table table-striped table-hover">
         <thead>
-          <tr>
+          <tr style={{backgroundColor:"black", color:"whitesmoke"}}>
             <th>Comunidad</th>
             <th>Dosis Pfizer</th>
             <th>Dosis Moderna</th>
@@ -171,6 +177,14 @@ function CRUD() {
         {console.log(data[3])}
           {data.map(framework=>(
             <tr key={framework.id}>
+              <div style={{display:"none"}}>
+                {Dosis_totales+=(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)}
+                {Totales_pfizer+=framework.dosis_Pfizer}
+                {Totales_moderna+=framework.dosis_Moderna}
+                {Totales_astrazeneca+=framework.dosis_Astrazeneca}
+                {Totales_Admin+=framework.administradas_totales}
+                {Total_pauta+=framework.pauta_completa}
+              </div>
               <td>{framework.nombre}</td>
               <td>{framework.dosis_Pfizer}</td>
               <td>{framework.dosis_Moderna}</td>
@@ -186,12 +200,20 @@ function CRUD() {
             </td>
             </tr>
           ))}
-  
-  
-        </tbody> 
+        </tbody>
+        <tr style={{backgroundColor:"black",color:"whitesmoke",fontWeight:"bold"}}>
+            <th>TOTAL</th>
+            <th>{Totales_pfizer}</th>
+            <th>{Totales_moderna}</th>
+            <th>{Totales_astrazeneca}</th>
+            <th>{Dosis_totales}</th>
+            <th>{Totales_Admin}</th>
+            <th>{(Totales_Admin/Dosis_totales*100).toFixed(1)}%</th>
+            <th>{Total_pauta}</th>
+            <th></th>
+          </tr> 
   
       </table>
-  
   
       <Modal isOpen={modalInsertar}>
         <ModalHeader>Insertar Comunidad</ModalHeader>
@@ -249,7 +271,7 @@ function CRUD() {
             <br />
             <label>Dosis AstraZeneca: </label>
             <br />
-            <input type="text" className="form-control" name="dosis_Astrazeneca" onChange={handleChange} value={frameworkSeleccionado && frameworkSeleccionado.dosis_AstraZeneca}/>
+            <input type="text" className="form-control" name="dosis_Astrazeneca" onChange={handleChange} value={frameworkSeleccionado && frameworkSeleccionado.dosis_Astrazeneca}/>
             <br />
             <label>Administradas Totales: </label>
             <br />
