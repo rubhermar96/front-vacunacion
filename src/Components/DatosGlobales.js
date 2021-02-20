@@ -53,11 +53,11 @@ const Pricing = () => {
             </tr>
             ))}
             </div>
-            <h1 className="h1">Datos Globales</h1>
+            <h1 className="h1" style={{borderBottom:"10px solid black"}}>Datos Globales</h1>
             <br/><br/>
             <ReactBootStrap.CardColumns>
                 <ReactBootStrap.Card>
-                    <h3>Dosis Entregadas en CC.AA</h3>
+                    <h3>Dosis Entregadas</h3>
                     <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{Dosis_totales}</h1>
                 </ReactBootStrap.Card>
                 <ReactBootStrap.Card>
@@ -65,7 +65,7 @@ const Pricing = () => {
                     <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{Totales_Admin}</h1>
                 </ReactBootStrap.Card>
                 <ReactBootStrap.Card>
-                    <h3>Personas con Pauta Completa</h3>
+                    <h3>Pauta Completa</h3>
                     <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{Total_pauta}</h1>
                 </ReactBootStrap.Card>
             </ReactBootStrap.CardColumns>

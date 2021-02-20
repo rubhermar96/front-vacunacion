@@ -156,7 +156,7 @@ function CRUD() {
   
     return (
       <div style={{textAlign: 'center'}}>
-        <h1 className="h1">Datos Por Comunidades Autónomas</h1><br/>
+        <h1 className="h1" style={{borderBottom:"10px solid black"}}>Datos Por Comunidades Autónomas</h1><br/>
         <button className="btn btn-success" onClick={()=>abrirCerrarModalInsertar()}><AddCircleIcon></AddCircleIcon></button>
         <br /><br />
       <table className="table table-striped table-hover">
