@@ -1,9 +1,13 @@
 import React from 'react';
+import * as ReactBootStrap from "react-bootstrap";
 
 const MoreDeets = () => {
     return(
         <div className="App">
-            <h1>MoreDeets HOURS</h1>
+            <ReactBootStrap.Card>
+                <h2>Proyecto React-SpringBoot Vacunación Covid-19</h2>
+                <h3>Rubén Herrera Marcos 2ºDAW</h3>
+            </ReactBootStrap.Card>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 
 //npm i bootstrap reactstrap axios sweetalert
 import React, {useState, useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import axios from 'axios';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -14,6 +14,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 //npm install sweetalert --save
 import swal from 'sweetalert';
 function CRUD() {
+  let dosis_totales=0;
     //direccion de la API
     const baseUrl="http://localhost:4004/comunidades/";
     const [data, setData]=useState([]);
@@ -28,9 +29,7 @@ function CRUD() {
       dosis_Astrazeneca: '',
       administradas_totales: '',
       pauta_completa: ''
-      
     });
-  
     const handleChange=e=>{
       const {name, value}=e.target;
       setFrameworkSeleccionado((prevState)=>({
@@ -58,7 +57,11 @@ function CRUD() {
       await axios.get(baseUrl)
       .then(response=>{
         setData(response.data);
-        //console.log(response.data);
+        console.log(response.data[0].dosis_Pfizer);
+        for (let i = 0; i < response.data.length; i++) {
+          dosis_totales+=response.data[i].dosis_Pfizer;
+          console.log(dosis_totales);
+       }
       }).catch(error=>{
         console.log(error);
       })
@@ -147,8 +150,7 @@ function CRUD() {
   
     return (
       <div style={{textAlign: 'center'}}>
-  <br />
-        <h1>Datos Por Comunidades Autónomas</h1><br/><br/>
+        <h1 className="h1">Datos Por Comunidades Autónomas</h1><br/>
         <button className="btn btn-success" onClick={()=>abrirCerrarModalInsertar()}><AddCircleIcon></AddCircleIcon></button>
         <br /><br />
       <table className="table table-striped table-hover">
@@ -166,16 +168,16 @@ function CRUD() {
           </tr>
         </thead>
         <tbody>
-        {console.log(data[0])}
+        {console.log(data[3])}
           {data.map(framework=>(
             <tr key={framework.id}>
               <td>{framework.nombre}</td>
               <td>{framework.dosis_Pfizer}</td>
               <td>{framework.dosis_Moderna}</td>
               <td>{framework.dosis_Astrazeneca}</td>
-              <td></td>
+              <td>{framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca}</td>
               <td>{framework.administradas_totales}</td>
-              <td></td>
+              <td>{(framework.administradas_totales/(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)*100).toFixed(1)}%</td>
               <td>{framework.pauta_completa}</td>
               
             <td>
@@ -271,10 +273,10 @@ function CRUD() {
           ¿Estás seguro que deseas eliminar la Comunidad {frameworkSeleccionado && frameworkSeleccionado.nombre}?
           </ModalBody>
           <ModalFooter>
-            <button className="btn btn-danger" onClick={()=>peticionDelete()}>
+            <button className="btn btn-primary" onClick={()=>peticionDelete()}>
               <CheckCircleIcon></CheckCircleIcon>
             </button>
-            <button className="btn btn-secondary" onClick={()=>abrirCerrarModalEliminar()} >
+            <button className="btn btn-danger" onClick={()=>abrirCerrarModalEliminar()} >
               <CancelIcon></CancelIcon>
             </button>
           </ModalFooter>

@@ -7,10 +7,10 @@ const inicio = () => {
     return(
         <div className="App">
             <header>
-                <h1>Campaña Vacunación Covid-19</h1>
-                <h2>Datos España</h2>
+                <h1 className="h1">Campaña Vacunación Covid-19</h1>
+                <h2 className="h2">Datos España</h2>
             </header>
-            <img src={imagenes.img3} alt="img usuarios" width="800" height="400"></img>
+            <img src={imagenes.img3} alt="Vacunación Covid-19 España" width="80%"></img>
         </div>
     )
 }
