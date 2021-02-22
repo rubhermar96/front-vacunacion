@@ -39,34 +39,47 @@ const Pricing = () => {
     useEffect(()=>{
         peticionGet();
       },[])
+    const dosisTotales=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Dosis_totales+=(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)}
+        </tr>
+        ))}
+      return Dosis_totales;
+    }
+    const totalesAdministradas=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Totales_Admin+=framework.administradas_totales}
+        </tr>
+        ))}
+      return Totales_Admin;
+    }
+    const totalPauta=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Total_pauta+=framework.pauta_completa}
+        </tr>
+        ))}
+      return Total_pauta;
+    }
+    
     return(
         <div className="App">
-            <div style={{display:"none"}}>
-            {data.map(framework=>(
-            <tr key={framework.id}>
-                {Dosis_totales+=(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)}
-                {Totales_pfizer+=framework.dosis_Pfizer}
-                {Totales_moderna+=framework.dosis_Moderna}
-                {Totales_astrazeneca+=framework.dosis_Astrazeneca}
-                {Totales_Admin+=framework.administradas_totales}
-                {Total_pauta+=framework.pauta_completa}
-            </tr>
-            ))}
-            </div>
             <h1 className="h1" style={{borderBottom:"10px solid black"}}>Datos Globales</h1>
             <br/><br/>
             <ReactBootStrap.CardColumns>
                 <ReactBootStrap.Card>
                     <h3>Dosis Entregadas</h3>
-                    <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{Dosis_totales}</h1>
+                    <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{dosisTotales()}</h1>
                 </ReactBootStrap.Card>
                 <ReactBootStrap.Card>
                     <h3>Dosis Administradas</h3>
-                    <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{Totales_Admin}</h1>
+                    <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{totalesAdministradas()}</h1>
                 </ReactBootStrap.Card>
                 <ReactBootStrap.Card>
                     <h3>Pauta Completa</h3>
-                    <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{Total_pauta}</h1>
+                    <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{totalPauta()}</h1>
                 </ReactBootStrap.Card>
             </ReactBootStrap.CardColumns>
         </div>
