@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import * as ReactBootStrap from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 const Pricing = () => {
-    let Dosis_totales=0;
-    let Totales_Admin=0;
-    let Total_pauta=0;
+    let Dosis_totales;
+    let Totales_Admin;
+    let Total_pauta;
      //direccion de la API
      const baseUrl="http://localhost:4004/comunidades/";
      const [data, setData]=useState([]);
@@ -37,6 +37,7 @@ const Pricing = () => {
         peticionGet();
       },[])
     const dosisTotales=()=>{
+      Dosis_totales=0;
       {data.map(framework=>(
         <tr key={framework.id}>
             {Dosis_totales+=(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)}
@@ -45,6 +46,7 @@ const Pricing = () => {
       return Dosis_totales;
     }
     const totalesAdministradas=()=>{
+      Totales_Admin=0;
       {data.map(framework=>(
         <tr key={framework.id}>
             {Totales_Admin+=framework.administradas_totales}
@@ -53,6 +55,7 @@ const Pricing = () => {
       return Totales_Admin;
     }
     const totalPauta=()=>{
+      Total_pauta=0;
       {data.map(framework=>(
         <tr key={framework.id}>
             {Total_pauta+=framework.pauta_completa}
@@ -69,14 +72,17 @@ const Pricing = () => {
                 <ReactBootStrap.Card>
                     <h3>Dosis Entregadas</h3>
                     <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{dosisTotales()}</h1>
+                    <h4>-</h4>
                 </ReactBootStrap.Card>
                 <ReactBootStrap.Card>
                     <h3>Dosis Administradas</h3>
                     <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{totalesAdministradas()}</h1>
+                    <h4>{(totalesAdministradas()/dosisTotales()*100).toFixed(1)}% dosis recibidas</h4>
                 </ReactBootStrap.Card>
                 <ReactBootStrap.Card>
                     <h3>Pauta Completa</h3>
                     <h1 style={{backgroundColor:"black",color:"whitesmoke"}}>{totalPauta()}</h1>
+                    <h4>{(totalPauta()/totalesAdministradas()*100).toFixed(1)}% dosis administradas</h4>
                 </ReactBootStrap.Card>
             </ReactBootStrap.CardColumns>
         </div>

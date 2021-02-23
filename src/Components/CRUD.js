@@ -3,7 +3,7 @@
 //instalar material-icons
 //npm install @material-ui/icons
 import React, {useState, useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import axios from 'axios';
 import AddCircleIcon from '@material-ui/icons/AddCircle';

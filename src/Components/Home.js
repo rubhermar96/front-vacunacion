@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 //para trabajar con imagenes
 //primero la tengo que importar de dnde esta
 import imagenes from'../assets/imagenes'
