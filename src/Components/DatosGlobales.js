@@ -4,9 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 const Pricing = () => {
     let Dosis_totales=0;
-    let Totales_pfizer=0;
-    let Totales_moderna=0;
-    let Totales_astrazeneca=0;
     let Totales_Admin=0;
     let Total_pauta=0;
      //direccion de la API

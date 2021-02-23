@@ -1,5 +1,7 @@
 
 //npm i bootstrap reactstrap axios sweetalert
+//instalar material-icons
+//npm install @material-ui/icons
 import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
@@ -152,6 +154,54 @@ function CRUD() {
     useEffect(()=>{
       peticionGet();
     },[])
+    const dosisTotales=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Dosis_totales+=(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)}
+        </tr>
+        ))}
+      return Dosis_totales;
+    }
+    const totalesAdministradas=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Totales_Admin+=framework.administradas_totales}
+        </tr>
+        ))}
+      return Totales_Admin;
+    }
+    const totalPauta=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Total_pauta+=framework.pauta_completa}
+        </tr>
+        ))}
+      return Total_pauta;
+    }
+    const totalPfizer=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Totales_pfizer+=framework.dosis_Pfizer}
+        </tr>
+        ))}
+      return Totales_pfizer;
+    }
+    const totalModerna=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Totales_moderna+=framework.dosis_Moderna}
+        </tr>
+        ))}
+      return Totales_moderna;
+    }
+    const totalAstrazeneca=()=>{
+      {data.map(framework=>(
+        <tr key={framework.id}>
+            {Totales_astrazeneca+=framework.dosis_Astrazeneca}
+        </tr>
+        ))}
+      return Totales_astrazeneca;
+    }
 
   
     return (
@@ -177,14 +227,6 @@ function CRUD() {
         {console.log(data[3])}
           {data.map(framework=>(
             <tr key={framework.id}>
-              <div style={{display:"none"}}>
-                {Dosis_totales+=(framework.dosis_Pfizer+framework.dosis_Moderna+framework.dosis_Astrazeneca)}
-                {Totales_pfizer+=framework.dosis_Pfizer}
-                {Totales_moderna+=framework.dosis_Moderna}
-                {Totales_astrazeneca+=framework.dosis_Astrazeneca}
-                {Totales_Admin+=framework.administradas_totales}
-                {Total_pauta+=framework.pauta_completa}
-              </div>
               <td>{framework.nombre}</td>
               <td>{framework.dosis_Pfizer}</td>
               <td>{framework.dosis_Moderna}</td>
@@ -203,13 +245,13 @@ function CRUD() {
         </tbody>
         <tr style={{backgroundColor:"black",color:"whitesmoke",fontWeight:"bold"}}>
             <th>TOTAL</th>
-            <th>{Totales_pfizer}</th>
-            <th>{Totales_moderna}</th>
-            <th>{Totales_astrazeneca}</th>
-            <th>{Dosis_totales}</th>
-            <th>{Totales_Admin}</th>
-            <th>{(Totales_Admin/Dosis_totales*100).toFixed(1)}%</th>
-            <th>{Total_pauta}</th>
+            <th>{totalPfizer()}</th>
+            <th>{totalModerna()}</th>
+            <th>{totalAstrazeneca()}</th>
+            <th>{dosisTotales()}</th>
+            <th>{totalesAdministradas()}</th>
+            <th>{(totalesAdministradas()/dosisTotales()*100).toFixed(1)}%</th>
+            <th>{totalPauta()}</th>
             <th></th>
           </tr> 
   
